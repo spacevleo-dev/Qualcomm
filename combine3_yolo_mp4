@@ -1,0 +1,6 @@
+gst-launch-1.0 -e \
+filesrc location=YOLO_test.mp4 ! qtdemux ! queue ! h264parse ! v4l2h264dec capture-io-mode=5 output-io-mode=5 ! videoconvert ! queue ! tee name=split \
+split. ! queue ! waylandsink fullscreen=true sync=false \
+split. ! queue ! qtimlvconverter ! queue ! qtimlsnpe delegate=dsp model=yolonas.dlc layers="</heads/Mul, /heads/Sigmoid>" ! queue ! qtimlvdetection threshold=51.0 results=10 module=yolo-nas labels=yolonas.labels ! queue ! videoconvert ! waylandsink sync=false
+
+
